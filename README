@@ -1,0 +1,10 @@
+Rina docker
+-----------
+Steps:
+
+* get line developer account
+* `cp env.example .env`, change port if needed
+* replace cert.key / cert.pem with real cert (line requires HTTPS)
+* `docker-compose build`
+* `docker-compose up`
+* go to https://localhost:443 and finish initial config

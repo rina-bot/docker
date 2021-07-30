@@ -1,0 +1,3 @@
+[submodule "main/rina"]
+	path = main/rina
+	url = https://github.com/rina-bot/rina

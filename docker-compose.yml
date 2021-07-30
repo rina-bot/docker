@@ -1,0 +1,25 @@
+services:
+  postgres:
+    container_name: rina_postgres
+    image: postgres:13.3
+    restart: unless-stopped
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+  main:
+    container_name: rina_main
+    build:
+      context: ./main
+    volumes:
+      - ./cert.key:/var/cert.key
+      - ./cert.pem:/var/cert.pem
+    ports:
+      - "443:443"
+    environment:
+      - PGHOST=postgres
+      - PGUSER=${POSTGRES_USER}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
