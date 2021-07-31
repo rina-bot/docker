@@ -12,9 +12,14 @@ bin/rails db:prepare
 # start beanstalkd
 beanstalkd &
 
+while !</dev/tcp/localhost/11300; do
+	echo "Waiting for beanstalkd..."
+	sleep 1
+done
+
 # start background worker (send/recv line messages)
-bin/rails backburner:work &
-bin/rails backburner:work &
+QUEUE="backburner.worker.queue.default" bin/rails backburner:work &
+QUEUE="backburner.worker.queue.default" bin/rails backburner:work &
 
 # start remote job worker
 bin/remote-job-report.rb &
